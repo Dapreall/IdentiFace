@@ -134,6 +134,13 @@ const scanAttendance = async (req, res, next) => {
       });
     }
 
+    if (aiResponse.nim !== student.nim) {
+      return res.status(403).json({
+        success: false,
+        message: "Wajah tidak sesuai dengan akun yang login.",
+      });
+    }
+
     const attendance = await attendanceRepository.upsertAttendance({
       id_sesi,
       nim: student.nim,
